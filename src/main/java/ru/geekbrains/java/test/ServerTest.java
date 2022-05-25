@@ -39,7 +39,7 @@ class ServerSomthing extends Thread {
                     }
                     System.out.println("Echoing: " + word);
 
-                    for (ServerSomthing vr : Server.serverList) {
+                    for (ServerSomthing vr : ServerTest.serverList) {
                         vr.send(word); // отослать принятое сообщение с привязанного клиента всем остальным влючая его
                     }
                 }
@@ -72,16 +72,16 @@ class ServerSomthing extends Thread {
                 socket.close();
                 in.close();
                 out.close();
-                for (ServerSomthing vr : Server.serverList) {
+                for (ServerSomthing vr : ServerTest.serverList) {
                     if(vr.equals(this)) vr.interrupt();
-                    Server.serverList.remove(this);
+                    ServerTest.serverList.remove(this);
                 }
             }
         } catch (IOException ignored) {}
     }
 }
 
-public class Server {
+public class ServerTest {
 
     public static final int PORT = 8080;
     public static LinkedList<ServerSomthing> serverList = new LinkedList<>(); // список всех нитей - экземпляров

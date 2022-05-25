@@ -35,20 +35,15 @@ class ClientSomthing {
             System.err.println("Socket failed");
         }
         try {
-            // потоки чтения из сокета / записи в сокет, и чтения с консоли
             inputUser = new BufferedReader(new InputStreamReader(System.in));
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            this.pressNickname(); // перед началом необходимо спросит имя
-            new ReadMsg().start(); // нить читающая сообщения из сокета в бесконечном цикле
-            new WriteMsg().start(); // нить пишущая сообщения в сокет приходящие с консоли в бесконечном цикле
+            this.pressNickname();
+            new ReadMsg().start();
+            new WriteMsg().start();
         } catch (IOException e) {
-            // Сокет должен быть закрыт при любой
-            // ошибке, кроме ошибки конструктора сокета:
             ClientSomthing.this.downService();
         }
-        // В противном случае сокет будет закрыт
-        // в методе run() нити.
     }
 
     /**
@@ -131,7 +126,7 @@ class ClientSomthing {
     }
 }
 
-public class Client {
+public class ClientTest {
 
     public static String ipAddr = "localhost";
     public static int port = 8080;
